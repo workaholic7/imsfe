@@ -1,77 +1,105 @@
-import React from 'react';
-import {  Form, Col, Row, Button } from 'react-bootstrap';
-import FormInput from './common/FormInput';
+import React, { useState, useEffect, useRef } from 'react';
+import { Col, Row, Button } from 'react-bootstrap';
+import { BASE_URL, REST_API } from '../Constants';
+import ItemRow from './ItemRow';
+import FormSelect from './common/FormSelect';
 
-function ItemDetail(){
+function ItemDetail({ formData, setFormData }) {
 
-    return(
-        <div classname='container'>
-            <div style={{textAlign: 'left', fontWeight:'bold', marginTop:'20px'}}>Item Details</div>
+    const childRefs = useRef([]);
+
+    const [itemType, setItemType] = useState([{ id: "", name: "" }]);
+    const [itemRow, setItemRow] = useState([]);
+    const [rowId, setRowId] = useState(0);
+    var itmeTypeId = "";
+    const setItemDetails = () => {
+        const items = [...formData.items];
+    }
+    const getItemTypes = () => {
+        var url = BASE_URL + REST_API.GET_ITEM_TYPES;
+        fetch(url, {
+            method: 'GET'
+        }).then(response => {
+            console.log(response);
+            if (response.status === 200 || response.status === 404)
+                return response.json();
+        }).then(res => {
+            setItemType(res);
+        })
+    }
+
+    const setItemTypeId = (e) => {
+        var id = e.target.value;
+        if (id !== "") {
+            itmeTypeId = id;
+        }
+    }
+
+    // const addField = (item) => {
+    //     var items = formData.items.push(item);
+    //     setFormData({...formData, ["items"]: items});
+    // }
+
+    const addItemRow = () => {
+        if (itmeTypeId !== "") {
+
+            // not allowed AND not working
+            setItemRow(itemRow => {
+                const list = itemRow.push(<ItemRow key={rowId} rowId={rowId} itemTypeId={itmeTypeId} deleteRow={deleteRow} ref={ins => childRefs.current[rowId] = ins} formData={formData} setFormData={setFormData} />);
+
+                return {
+                    list
+                };
+            });
+            //setItemRow({ itemRow.concat(<ItemRow key={rowId} rowId={rowId} itemTypeId={itmeTypeId} deleteRow={deleteRow} ref={ins => childRefs.current[rowId] = ins} formData={formData} setFormData={setFormData} />) });
+            setRowId(rowId + 1);
+        }
+    }
+
+    const deleteRow = (rowId) => {
+        //itemRow.splice(rowId, 1);
+        setItemRow([...itemRow.splice(rowId, 1)]);
+        //childRefs.current.splice(rowId, 1);
+    }
+
+    const calculate = () => {
+        var total = 0;
+        var items = [];
+        childRefs.current.forEach(child => {
+            if (child != null) {
+                total += child.getTotal();
+                items.push(child.getItemDetail());
+            }
+        })
+        setFormData({ ...formData, ["total"]: total, ["items"]: items })
+    }
+
+    useEffect(() => {
+        getItemTypes();
+    }, []);
+
+    return (
+        <div className='container'>
+            <div style={{ textAlign: 'left', fontWeight: 'bold', marginTop: '20px' }}>Item Details</div>
             <hr />
-            <Form>
-            <Row>  
-                <Col md={4}>
-                <FormInput name="address" placeholder="Address" value=""
-                    onChange="onFieldChange()" required="required" size="8" 
-                    label="Add Item" labelSpan="4"
-                    disabled/>
-                </Col>
-                <Col md={2}>
-                    <Button>Add</Button>
-                </Col>
-            </Row>
 
             <Row>
-                <Col md={3}>
-                    <FormInput name="itemDescription" placeholder="Item Description" value=""
-                    onChange="onFieldChange()" required="required" size="12"/>
-                </Col>
-
-                <Col md={{span:1, offset:0}}>
-                    <FormInput name="qty" placeholder="QTY" value=""
-                    onChange="onFieldChange()" required="required" size="12"/>
-                </Col>
-           
-                <Col md={{span:2, offset:0}}>
-                    <FormInput name="unitPrice" placeholder="Unit Price(RM)" value=""
-                    onChange="onFieldChange()" required="required" size="12"/>
-                </Col>
-
-                <Col md={{span:2, offset:0}}>
-                    <FormInput name="amount" placeholder="Amount(RM)" value=""
-                    onChange="onFieldChange()" required="required" size="12"/>
-                </Col>
-            </Row>
-
-            {/* <Row>  
                 <Col md={4}>
-                    <FormInput name="address" placeholder="Address" value=""
-                    onChange="onFieldChange()" required="required" size="8" offset="4"
-                    disabled/>
-                </Col>
-            </Row>
-            
+                    <FormSelect label="Add Item" dropdDownList={itemType} placeholder="Select Item" onChange={setItemTypeId} />
 
-            <div style={{textAlign: 'left', fontWeight:'bold', marginTop:'20px'}}>Item Details</div>
-            <hr />
-            <Row>  
-                <Col md={4}>
-                <FormInput name="address" placeholder="Address" value=""
-                    onChange="onFieldChange()" required="required" size="8" 
-                    label="Add Item" labelSpan="4"
-                    disabled/>
                 </Col>
                 <Col md={2}>
-                    <Button>Add</Button>
+                    <Button onClick={addItemRow}>Add</Button>
                 </Col>
             </Row>
+            {itemRow}
             <Row>
                 <Col>
+                    <Button onClick={() => calculate()} disabled={itemRow.length < 1}>Calculate</Button>
                 </Col>
-            </Row> */}
+            </Row>
 
 
-            </Form>
         </div>
     );
 }
