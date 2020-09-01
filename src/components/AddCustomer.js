@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Form, Col, Row, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import {Form, Col, Row, Button } from 'react-bootstrap';
 import { BASE_URL, REST_API } from '../Constants';
 import PageHeading from './common/PageHeading';
 import FormInput from './common/FormInput';
+import {Styles} from './css/Styles'
 
 function AddCustomer() {
     const [formData, setFormData] = useState({name:"", phoneNum:"", addressLine1:"", addressLine2:"",
@@ -39,8 +40,7 @@ function AddCustomer() {
         });
     }
     return(
-        <Container fluid>
-           <Container>
+        <>
                 <PageHeading title='Add Customer' />
                 {result !== '' ?
                     <Row>
@@ -50,77 +50,45 @@ function AddCustomer() {
                     <></>}
 
                 <Form onSubmit={onSubmit} >
-                    <FormInput size="4" name="name" placeholder="*Name" value={formData.name} onChange={onFieldChange} required/>
-                    <FormInput size="4" name="phoneNum" placeholder="*Phone" value={formData.phoneNum} onChange={onFieldChange} required/>
-                    <FormInput size="4" name="addressLine1" placeholder="*Address Line 1" value={formData.addressLine1} onChange={onFieldChange} required/>
-                    <FormInput size="4" name="addressLine2" placeholder="Address Line 2" value={formData.addressLine2} onChange={onFieldChange} />
-                    <FormInput size="4" name="state" placeholder="*State" value={formData.state} onChange={onFieldChange} required/>
-                    <FormInput size="4" name="country" placeholder="*Country" value={formData.country} onChange={onFieldChange} required/>
-                    <FormInput size="4" name="zipCode" placeholder="*Zip Code" value={formData.zipCode} onChange={onFieldChange} required/>
-                    <FormInput size="4" name="state" placeholder="*State" value={formData.state} onChange={onFieldChange} required/>
-                    <FormInput size="4" name="company" placeholder="Company (Optional)" value={formData.company} onChange={onFieldChange} />
-                    {/* <Form.Group as={Row} controlId="formBasicCustomerName">
-                        <Col md={4}>
-                            <Form.Control type="input" name="name" placeholder="*Name" value={formData.name} onChange={onFieldChange} required />
-                        </Col>
-                    </Form.Group> */}
-
-                    {/* <Form.Group as={Row} controlId="formBasicCustomerPhone">
-                        <Col md={4}>
-                            <Form.Control type="input" name="phoneNum" placeholder="*Phone" value={formData.phoneNum} onChange={onFieldChange}
-                                required />
-                        </Col>
-                    </Form.Group> */}
+                    <FormInput size="4" name="name" placeholder="Name" value={formData.name} onChange={onFieldChange} 
+                    label="Name" labelStyle={Styles.right} 
+                    labelSpan="3" required/>
+                    <FormInput size="4" name="phoneNum" placeholder="Phone" value={formData.phoneNum} onChange={onFieldChange} 
+                    label="Phone" labelStyle={Styles.right} 
+                    labelSpan="3" required/>
+                    <FormInput size="4" name="addressLine1" placeholder="Address Line 1" 
+                    value={formData.addressLine1} onChange={onFieldChange} 
+                    label="Address Line 1" labelSpan="3" labelStyle={Styles.right} required/>
+                    <FormInput size="4" name="addressLine2" placeholder="Address Line 2" 
+                    value={formData.addressLine2} onChange={onFieldChange} 
+                    label="Address Line 2" labelSpan="3" labelStyle={Styles.right} />
+                    <FormInput size="4" name="state" placeholder="State" 
+                    value={formData.state} onChange={onFieldChange} 
+                    label="State" labelStyle={Styles.right} 
+                    labelSpan="3" required/>
+                    <FormInput size="4" name="country" placeholder="Country" 
+                    value={formData.country} onChange={onFieldChange} 
+                    label="Country" labelStyle={Styles.right} 
+                    labelSpan="3" required/>
+                    <FormInput size="4" name="zipCode" placeholder="Zip Code" 
+                    value={formData.zipCode} onChange={onFieldChange} 
+                    label="Zip Code" labelStyle={Styles.right} 
+                    labelSpan="3" required/>
                     
-                    {/* <Form.Group as={Row} controlId="formBasicAddressLine1">
-                       <Col md={4}>
-                            <Form.Control type="input" name="addressLine1" placeholder="*Address Line 1" value={formData.addressLine1} onChange={onFieldChange} required />
-                        </Col>
-                    </Form.Group> */}
-
-                    {/* <Form.Group as={Row} controlId="formBasicAddressLine2">
-                       <Col md={4}>
-                            <Form.Control type="input" name="addressLine2" placeholder="Address Line 2" value={formData.addressLine2} onChange={onFieldChange}/>
-                        </Col>
-                    </Form.Group> */}
-
-                    {/* <Form.Group as={Row} controlId="formBasicState">
-                       <Col md={4}>
-                            <Form.Control type="input" name="state" placeholder="*State" value={formData.state} onChange={onFieldChange} required />
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group as={Row} controlId="formBasicCountry">
-                       <Col md={4}>
-                            <Form.Control type="input" name="country" placeholder="*Country" value={formData.country} onChange={onFieldChange} required />
-                        </Col>
-                    </Form.Group>
-
-                    <Form.Group as={Row} controlId="formBasicZipCode">
-                       <Col md={4}>
-                            <Form.Control type="input" name="zipCode" placeholder="*Zip Code" value={formData.address} onChange={onFieldChange} required />
-                        </Col>
-                    </Form.Group> */}
-
-                    
-                    {/* <Form.Group as={Row} controlId="formBasicCompany">
-                        <Col md={4}>
-                            <Form.Control type="input" name="company" placeholder="Company (Optional)" value={formData.company} onChange={onFieldChange} />
-                        </Col>
-                    </Form.Group> */}
-
+                    <FormInput size="4" name="company" placeholder="Company" 
+                    value={formData.company} onChange={onFieldChange} 
+                    label="Company (Optional)" 
+                    labelSpan="3" labelStyle={Styles.right} />
                     <Row>
-                        <Col md={{ span: 2, offset: 0 }} xs={12} style={{ textAlign: 'center' }}>
-                            <Button variant="primary" type="submit" className="updateButton">
+                        <Col md={{ span: 4, offset: 3 }} xs={12} style={{ textAlign: 'center' }}>
+                            <Button variant="primary" type="submit" className="addButton" style={{width: '100%'}}>
                                 ADD
                             </Button>
-                            {/* <Button variant="light" type="reset" > RESET </Button> */}
                         </Col>
                     </Row>
 
                 </Form>
-            </Container>
-        </Container>
+            </>
     )
 
 }
