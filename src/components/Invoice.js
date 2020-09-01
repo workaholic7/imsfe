@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import TableView from './common/TableView';
-import {BASE_URL, REST_API, DATE_FORMAT} from '../Constants';
-import moment from 'moment';
+import {BASE_URL, REST_API} from '../Constants';
 import PageHeading from './common/PageHeading';
+import Count from './common/Count';
 
 function Invoice(){
     const [data, setInvoiceData] = useState([]);
@@ -18,6 +18,8 @@ function Invoice(){
             setInvoiceData(res.invoices);
             setTotalInvoices(res.totalInvoices);
             setTotalCustomers(res.totalCustomers);
+        }).catch(err=>{
+            console.log("error");
         });
     }
 
@@ -27,32 +29,31 @@ function Invoice(){
         fetch(url, {
             method: 'DELETE',
         }).then(response => {
-            if(response.status===200 || response.status===404){
-                return response.json();
-            }
-        }).then(res => {
-            if(res.errorMessage===undefined){
+            if(response.status===204){
                 setInvoiceData(data.filter(function(value){ return  value.id!==id;}))
-            } else{
-                console.log(res.errorMessage);
             }
+        }).catch(err=>{
+            console.log(err);
         });
     }
 
-    const downloadInvoice = (id) => {
-        var url = BASE_URL+REST_API.DELETE_INVOICE.replace('{id}', id);
+    const downloadInvoice = (id , refNum) => {
+        const fileName = 'Invoice_'+refNum;
+        var url = BASE_URL+REST_API.DOWNLOAD_INVOICE.replace('{id}', id);
         fetch(url, {
-            method: 'DELETE',
+            method: 'GET',
         }).then(response => {
-            if(response.status===200 || response.status===404){
-                return response.json();
+            if(response.status===200){
+                return response.blob();
             }
-        }).then(res => {
-            if(res.errorMessage===undefined){
-                setInvoiceData(data.filter(function(value){ return  value.id!==id;}))
-            } else{
-                console.log(res.errorMessage);
-            }
+        }).then(blob => {
+            let url = window.URL.createObjectURL(blob);
+					let a = document.createElement('a');
+					a.href = url;
+					a.download = fileName;
+					a.click();
+        }).catch(err=>{
+            console.log(err);
         });
     }
 
@@ -64,8 +65,9 @@ function Invoice(){
     return(
         <>
             <PageHeading title='Invoices' />
+            <Count />
             <TableView header={tableHeader} body={data} delete={deleteByInvoiceId}
-                download={downloadInvoice}>
+                download={downloadInvoice} downloadFileName="referenceNum">
             </TableView>
         </>
     );

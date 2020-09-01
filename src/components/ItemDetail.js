@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Form, Col, Row, Button } from 'react-bootstrap';
-import { BASE_URL, REST_API } from '../Constants';
-import PageHeading from './common/PageHeading';
+import React from 'react';
+import {  Form, Col, Row, Button } from 'react-bootstrap';
 import FormInput from './common/FormInput';
 
 function ItemDetail(){

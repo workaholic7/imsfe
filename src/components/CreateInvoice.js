@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Form, Col, Row, Button } from 'react-bootstrap';
-import { BASE_URL, REST_API } from '../Constants';
+import React from 'react';
+import { Form, Col, Row } from 'react-bootstrap';
 import PageHeading from './common/PageHeading';
 import FormInput from './common/FormInput';
 import ItemDetail from './ItemDetail';
+import {Styles} from './css/Styles'
 
 function CreateInvoice(){
 
     return(
-        <div classname='container'>
+        <div className='container'>
             <PageHeading title='Create Invoice' />
             {/* <Form onSubmit={onSubmit}> */}
             <Form>
@@ -22,7 +22,7 @@ function CreateInvoice(){
                 <Col md={{span:6, offset:2}}>
                     <FormInput name="referenceNumber" placeholder="Reference Number" value=""
                     onChange="onFieldChange()" required="required" size="5" label="Reference No:"
-                    labelSpan="4" labelOffset="1" labelStyle={{textAlign:'right'}} disabled/>
+                    labelSpan="4" labelOffset="1" labelStyle={Styles.right} disabled/>
                 </Col>
             </Row>
             <Row>
@@ -35,7 +35,7 @@ function CreateInvoice(){
                 <Col md={{span:6, offset:2}}>
                     <FormInput name="date" placeholder="Date" value=""
                     onChange="onFieldChange()" required="required" size="5" label="Date:"
-                    labelSpan="4" labelOffset="1" labelStyle={{textAlign:'right'}} disabled/>
+                    labelSpan="4" labelOffset="1" labelStyle={Styles.right} disabled/>
                 </Col>
             </Row>
             <Row>  

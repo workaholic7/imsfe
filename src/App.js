@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {Router, Link} from '@reach/router';
+import {Router} from '@reach/router';
 import Invoice from './components/Invoice';
 import CreateInvoice from './components/CreateInvoice';
 import Customer from './components/Customer';
@@ -15,11 +14,12 @@ function App() {
   return (
     <Container fluid className="App" style={styles.fullHeight}>
       <Row style={styles.fullHeight}>
-        <Col xl={2} md={2}>
-      <Menu />
+        <Col xl={2} md={2} style={{padding: '0px'}}>
+        <Menu />
       </Col>
-      <Col xl={10}  md={10}>
+      <Col xl={9}  md={9}>
       <Router>
+        <Invoice path="/" />
         <Invoice path='/invoice'/>
         <CreateInvoice path='/invoice/create'/>
         <Customer path='/customer'/>

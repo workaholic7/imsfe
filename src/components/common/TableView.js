@@ -29,7 +29,7 @@ function TableView(props) {
                         {element[key]}
                     </td>:<></>
                    )}
-                   {props.download?<td><FontAwesomeIcon icon={faArrowAltCircleDown} size="lg" onClick={() =>props.download(element.id)}/></td>
+                   {props.download?<td><FontAwesomeIcon icon={faArrowAltCircleDown} size="lg" onClick={() =>props.download(element.id, element[props.downloadFileName])}/></td>
                       :<></>}
                      {props.delete?<td><FontAwesomeIcon icon={faTrashAlt} size="lg" onClick={() =>props.delete(element.id)}/></td>
                      :<></>}

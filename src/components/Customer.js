@@ -23,15 +23,11 @@ function Customer(props){
         fetch(url, {
             method: 'DELETE',
         }).then(response => {
-            if(response.status===200 || response.status===404){
-                return response.json();
+            if(response.status===204){
+                setCustomerData(data.filter(function(value){ return  value.id!==id;})) 
             }
-        }).then(res => {
-            if(res.errorMessage===undefined){
-                setCustomerData(data.filter(function(value){ return  value.id!==id;}))
-            } else{
-                console.log(res.errorMessage);
-            }
+        }).catch(res => {
+           console.log("error"); 
         });
     }
 
