@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.1.91:8080";
+export const BASE_URL = "http://192.168.1.22:8080";
 export const DATE_FORMAT = "DD/MM/YYYY";
 export const REST_API = {
     GET_INVOICE: "/invoice",
@@ -9,5 +9,7 @@ export const REST_API = {
     ADD_CUSTOMER: "/customer",
     GET_CUSTOMER_BY_NAME: "/customer/name",
     GET_ITEM_TYPES: "/invoice/itemTypes",
-    DOWNLOAD_INVOICE: "/invoice/download/{id}"
+    DOWNLOAD_INVOICE: "/invoice/download/{id}",
+    CREATE_INVOICE:"/invoice",
+    LOGIN:"/login",
 }

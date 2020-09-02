@@ -1,6 +1,6 @@
 import React from 'react';
 import {Nav} from 'react-bootstrap';
-import {Link} from '@reach/router';
+import {Link} from 'react-router-dom';
 import {Styles} from './css/Styles'
 
 export default function Menu(){

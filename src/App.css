@@ -48,3 +48,170 @@ a{
 a:hover{
   text-decoration: none !important; 
 }
+
+
+:root {
+  --content-height: calc(100vh - 220px);
+}
+
+.App {
+  text-align: center;
+}
+
+.container-fluid, .navbar{
+  padding: 0px !important;
+  
+}
+
+.custom-navbar{
+  position:fixed !important;
+  top:0px;
+  height: 70px;
+  width:100%;
+  z-index: 10;
+}
+
+.navbar-brand {
+  font-size: 1.75rem !important;
+}
+a:hover{
+ text-decoration: none !important;
+}
+
+.navItem>a{
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 1.25rem !important;
+  margin:10px;
+}
+.navItem>a:hover{
+   color: rgba(255, 255, 255, 0.75) !important;
+   font-size: 1.35rem !important
+
+
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.updateButton{
+  margin-right:50px !important;
+}
+
+.success{
+  border: 3px solid green !important;
+}
+
+.error{
+  border: 3px solid red !important;
+}
+
+.custom-form{
+  border-radius: 8px;
+  border: 1px solid #dadce0;
+  width: 450px;
+  margin: auto;
+  padding: 20px ;
+  height: auto;
+  min-height: 425px;
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-header{
+  margin: 30px auto;
+  text-align: center;
+}
+
+.custom-form-group{
+  margin-bottom: 30px !important;
+}
+
+.btn-primary{
+  background-color: #157FFB !important;
+}
+
+.content{
+  min-height: var(--content-height);
+}
+
+.loading{
+  fill: rgb(21, 127, 251) !important;
+  width: 50px !important;
+  margin: auto !important;
+  margin-top: calc((var(--content-height) - 120px) / 2) !important;
+}
+
+.footer{
+  position: relative;
+  bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.password-policy{
+padding-left: 0px !important;
+padding-top: 8px;
+}
+
+.edit-button{
+  color: #FDC02E;
+  cursor: pointer;
+  text-align: center;
+}
+
+.delete-button{
+  color: #D93749;
+  cursor: pointer;
+  text-align: center;
+}
+
+.toggle-password-button{
+  border-left-width: 0px !important;
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.password-input{
+  border-top-left-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important; 
+}
+
+.table-head{
+  vertical-align: top !important;
+}
+
+.form-result{
+  font-size: 16px !important;
+  text-align: left !important;
+  margin-bottom:10px !important;
+  padding-left:0px !important;
+}
+
+
+

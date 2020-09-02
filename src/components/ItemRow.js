@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 const ItemRow = forwardRef(({ itemTypeId, deleteRow, rowId }, ref) => {
-    const [itemDetail, setItemDetail] = useState({ description: "", quantity: "", unitPrice: "", amount: "" });
+    const [itemDetail, setItemDetail] = useState({ description: "", quantity:"", unitPrice:"", amount:"" });
     const onFieldChange = (e) => {
-        setItemDetail({
-            ...itemDetail, [e.target.name]: e.target.value
-        });
+        const item = Object.assign({}, itemDetail);
+        item[e.target.name] = e.target.value;
+        setItemDetail(item);
     }
 
     useImperativeHandle(ref, () => ({
@@ -21,13 +21,10 @@ const ItemRow = forwardRef(({ itemTypeId, deleteRow, rowId }, ref) => {
         }
     }));
 
-
-
     const updateAmount = () => {
-        setItemDetail(
-            {
-                ...itemDetail, ["amount"]: itemDetail.quantity * itemDetail.unitPrice
-            });
+        const item = Object.assign({}, itemDetail);
+        item.amount = itemDetail.quantity * itemDetail.unitPrice;
+        setItemDetail(item);
     }
 
     useEffect(() => {
@@ -36,8 +33,8 @@ const ItemRow = forwardRef(({ itemTypeId, deleteRow, rowId }, ref) => {
 
     return (
         <Row>
-            <FormInput name="itemTypeId" hidden value={itemTypeId} />
-            <Col md={3}>
+            <FormInput  name="itemTypeId" hidden defaultValue={itemTypeId} />
+            <Col md={{ span: 3, offset: 1 }}>
                 <FormInput name="description" placeholder="Item Description" value={itemDetail.description}
                     onChange={onFieldChange} required="required" size="12" />
             </Col>

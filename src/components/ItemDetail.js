@@ -4,17 +4,16 @@ import { BASE_URL, REST_API } from '../Constants';
 import ItemRow from './ItemRow';
 import FormSelect from './common/FormSelect';
 
-function ItemDetail({ formData, setFormData }) {
+function ItemDetail({ formData, setFormData, disableSaveButton }) {
 
     const childRefs = useRef([]);
 
     const [itemType, setItemType] = useState([{ id: "", name: "" }]);
     const [itemRow, setItemRow] = useState([]);
     const [rowId, setRowId] = useState(0);
-    var itmeTypeId = "";
-    const setItemDetails = () => {
-        const items = [...formData.items];
-    }
+    const [itemTypeId, setItemTypeId] = useState("");
+    const [showCalculateButton, setShowCalculateButton] = useState(true);
+    
     const getItemTypes = () => {
         var url = BASE_URL + REST_API.GET_ITEM_TYPES;
         fetch(url, {
@@ -25,41 +24,32 @@ function ItemDetail({ formData, setFormData }) {
                 return response.json();
         }).then(res => {
             setItemType(res);
+        }).catch(err=>{
+            console.log(err);
         })
     }
 
-    const setItemTypeId = (e) => {
-        var id = e.target.value;
-        if (id !== "") {
-            itmeTypeId = id;
-        }
+    const updateItemTypeId = (e) => {
+        setItemTypeId(e.target.value);
     }
 
-    // const addField = (item) => {
-    //     var items = formData.items.push(item);
-    //     setFormData({...formData, ["items"]: items});
-    // }
-
     const addItemRow = () => {
-        if (itmeTypeId !== "") {
-
-            // not allowed AND not working
-            setItemRow(itemRow => {
-                const list = itemRow.push(<ItemRow key={rowId} rowId={rowId} itemTypeId={itmeTypeId} deleteRow={deleteRow} ref={ins => childRefs.current[rowId] = ins} formData={formData} setFormData={setFormData} />);
-
-                return {
-                    list
-                };
-            });
-            //setItemRow({ itemRow.concat(<ItemRow key={rowId} rowId={rowId} itemTypeId={itmeTypeId} deleteRow={deleteRow} ref={ins => childRefs.current[rowId] = ins} formData={formData} setFormData={setFormData} />) });
-            setRowId(rowId + 1);
-        }
+        const items = Object.assign([], itemRow);
+        items.push(<ItemRow key={rowId} rowId={rowId} itemTypeId={itemTypeId} deleteRow={deleteRow} ref={ins => childRefs.current[rowId] = ins} formData={formData} setFormData={setFormData} />);
+        setItemRow(items);
+        setRowId(rowId + 1);
+        setShowCalculateButton(false);
+        disableSaveButton(true);
     }
 
     const deleteRow = (rowId) => {
         //itemRow.splice(rowId, 1);
-        setItemRow([...itemRow.splice(rowId, 1)]);
-        //childRefs.current.splice(rowId, 1);
+        const items = Object.assign([], itemRow);
+        items.splice(rowId, 1);
+        setItemRow(items);
+        childRefs.current.splice(rowId, 1);
+        setShowCalculateButton(false);
+        disableSaveButton(true);
     }
 
     const calculate = () => {
@@ -71,7 +61,8 @@ function ItemDetail({ formData, setFormData }) {
                 items.push(child.getItemDetail());
             }
         })
-        setFormData({ ...formData, ["total"]: total, ["items"]: items })
+        setFormData({ ...formData, total, items });
+        disableSaveButton(false);
     }
 
     useEffect(() => {
@@ -85,17 +76,17 @@ function ItemDetail({ formData, setFormData }) {
 
             <Row>
                 <Col md={4}>
-                    <FormSelect label="Add Item" dropdDownList={itemType} placeholder="Select Item" onChange={setItemTypeId} />
+                    <FormSelect label="Add Item" dropDownList={itemType} placeholder="Select Item" onChange={updateItemTypeId} />
 
                 </Col>
                 <Col md={2}>
-                    <Button onClick={addItemRow}>Add</Button>
+                    <Button onClick={addItemRow} disabled={itemTypeId===""}>Add</Button>
                 </Col>
             </Row>
             {itemRow}
             <Row>
                 <Col>
-                    <Button onClick={() => calculate()} disabled={itemRow.length < 1}>Calculate</Button>
+                    <Button onClick={() => calculate()} disabled={showCalculateButton}>Calculate</Button>
                 </Col>
             </Row>
 
