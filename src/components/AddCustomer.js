@@ -12,6 +12,8 @@ function AddCustomer() {
     })
     const [result, setResult] = useState('');
     const [isSuccess, setSuccess] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+
     const onFieldChange = (e) => {
         setFormData({
             ...formData, [e.target.name]: e.target.value
@@ -29,9 +31,10 @@ function AddCustomer() {
             }
         }).then(response => {
             console.log(response);
-            if (response.status === 201 || response.status === 404)
+            if (response.status === 201)
                 return response.json();
         }).then(res => {
+            setDisabled(true);
             if (res.errorMessage === undefined) {
                 setResult(res.message);
                 setSuccess(true);
@@ -39,6 +42,8 @@ function AddCustomer() {
                 setSuccess(false);
                 setResult(res.errorMessage);
             }
+        }).catch(err=>{
+            console.log(err);
         });
     }
     return (
@@ -83,9 +88,9 @@ function AddCustomer() {
                     labelSpan="3" labelStyle={Styles.right} />
                 <Row>
                     <Col md={{ span: 4, offset: 3 }} xs={12} style={{ textAlign: 'center' }}>
-                        <Button variant="primary" type="submit" className="addButton" style={{ width: '100%' }}>
+                        <Button variant="primary" type="submit" className="addButton" style={{ width: '100%' }} disabled={disabled}>
                             ADD
-                            </Button>
+                        </Button>
                     </Col>
                 </Row>
 

@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 
 FormSelect.propTypes = {
     label: PropTypes.string,
-    dropdDownList: PropTypes.array.isRequired
+    dropDownList: PropTypes.array.isRequired
 }
-export default function FormSelect({ label, dropdDownList, placeholder, onChange }) {
+export default function FormSelect({ label, dropDownList, placeholder, onChange }) {
 
     return (
         <>
-            {dropdDownList &&
+            {dropDownList &&
                 <Form.Group as={Row} controlId="exampleForm.ControlSelect1">
                     <Form.Label>{label}</Form.Label>
                     <Col>
-                        <Form.Control as="select" onChange={onChange}>
+                        <Form.Control as="select" key={label} onChange={onChange}>
                             <option value="" key={placeholder}> {placeholder} </option>
-                            {dropdDownList.map((data) =>
-                                <option value={data.id} key={data} >
+                            {dropDownList.map((data,index) =>
+                                <option value={data.id} key={data+index} >
                                     {data.name}
                                 </option>)}
 
