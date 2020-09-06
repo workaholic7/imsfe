@@ -6,6 +6,7 @@ import FormInput from './common/FormInput';
 import ItemDetail from './ItemDetail';
 import { Styles } from './css/Styles'
 import FormSelect from './common/FormSelect';
+import FormResult from './common/FormResult';
 
 function CreateInvoice() {
 
@@ -16,6 +17,8 @@ function CreateInvoice() {
     });
     const [disabled, setDisabled] = useState(true);
     const [response, setResponse] = useState({ refNum: "", date: "" });
+    const [result, setResult] = useState('');
+    const [isSuccess, setSuccess] = useState(false);
 
     const disableSaveButton = (currentValue) => {
         setDisabled(currentValue);
@@ -76,9 +79,14 @@ function CreateInvoice() {
             responseCopy.date = res.date;
             setResponse(responseCopy);
             setDisabled(true);
+            setSuccess(true);
+            setResult("Invoice Created Successfully");
 
         }).catch(err => {
             console.log(err);
+            setSuccess(false);
+            setResult(err.errorMessage);
+
         });
     }
 
@@ -90,10 +98,11 @@ function CreateInvoice() {
     return (
         <div className='container'>
             <PageHeading title='Create Invoice' />
+            <FormResult isSuccess={isSuccess} result={result} span="12" />
             <Form onSubmit={onSubmit}>
                 <Row>
                     <Col md={4}>
-                        <FormSelect label="Bill To:" dropDownList={custNameAndId} placeholder="Customer Name" onChange={getCustomerDetails} />
+                        <FormSelect label="Bill To:" span="8" labelSpan="4" labelOffset="0" dropDownList={custNameAndId} placeholder="Customer Name" onChange={getCustomerDetails} />
                     </Col>
 
                     <Col md={{ span: 6, offset: 2 }}>

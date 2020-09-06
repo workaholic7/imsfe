@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     isLoggedIn(sessionStorage.getItem('authenticated'))
-  }, [])
+  }, [loggedIn])
 
   return (
     <Container fluid className="App" style={styles.fullHeight}>

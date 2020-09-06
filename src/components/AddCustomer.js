@@ -4,6 +4,7 @@ import { BASE_URL, REST_API } from '../Constants';
 import PageHeading from './common/PageHeading';
 import FormInput from './common/FormInput';
 import { Styles } from './css/Styles'
+import FormResult from './common/FormResult';
 
 function AddCustomer() {
     const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ function AddCustomer() {
         }).then(res => {
             setDisabled(true);
             if (res.errorMessage === undefined) {
-                setResult(res.message);
+                setResult("User Created Successfully");
                 setSuccess(true);
             } else {
                 setSuccess(false);
@@ -49,37 +50,32 @@ function AddCustomer() {
     return (
         <>
             <PageHeading title='Add Customer' />
-            {result !== '' ?
-                <Row>
-                    <Col md={{ span: 4, offset: 4 }} style={{ 'color': isSuccess ? 'blue' : 'red', 'fontWeight': 'bold', 'marginBottom': '20px' }}>{result}
-                    </Col>
-                </Row> :
-                <></>}
+            <FormResult isSuccess={isSuccess} result={result} span="12" />
 
             <Form onSubmit={onSubmit} >
                 <FormInput size="4" name="name" placeholder="Name" value={formData.name} onChange={onFieldChange}
-                    label="Name" labelStyle={Styles.right}
+                    label="Name*" labelStyle={Styles.right}
                     labelSpan="3" required />
                 <FormInput size="4" name="phoneNum" placeholder="Phone" value={formData.phoneNum} onChange={onFieldChange}
-                    label="Phone" labelStyle={Styles.right}
+                    label="Phone*" labelStyle={Styles.right}
                     labelSpan="3" required />
                 <FormInput size="4" name="addressLine1" placeholder="Address Line 1"
                     value={formData.addressLine1} onChange={onFieldChange}
-                    label="Address Line 1" labelSpan="3" labelStyle={Styles.right} required />
+                    label="Address Line 1*" labelSpan="3" labelStyle={Styles.right} required />
                 <FormInput size="4" name="addressLine2" placeholder="Address Line 2"
                     value={formData.addressLine2} onChange={onFieldChange}
                     label="Address Line 2" labelSpan="3" labelStyle={Styles.right} />
                 <FormInput size="4" name="state" placeholder="State"
                     value={formData.state} onChange={onFieldChange}
-                    label="State" labelStyle={Styles.right}
+                    label="State*" labelStyle={Styles.right}
                     labelSpan="3" required />
                 <FormInput size="4" name="country" placeholder="Country"
                     value={formData.country} onChange={onFieldChange}
-                    label="Country" labelStyle={Styles.right}
+                    label="Country*" labelStyle={Styles.right}
                     labelSpan="3" required />
                 <FormInput size="4" name="zipCode" placeholder="Zip Code"
                     value={formData.zipCode} onChange={onFieldChange}
-                    label="Zip Code" labelStyle={Styles.right}
+                    label="Zip Code*" labelStyle={Styles.right}
                     labelSpan="3" required />
 
                 <FormInput size="4" name="company" placeholder="Company"
