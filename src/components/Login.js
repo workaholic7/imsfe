@@ -30,17 +30,14 @@ function Login(props) {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
-
             if (response.status === 200) {
                 sessionStorage.setItem('authenticated', true);
-                history.push("/");
-                return;
-            } else {
-                return response.json();
+                history.push("/invoice");
+                
+            }  else{
+                throw Error();
             }
-        }).then(res => {
-            setSuccess(false);
-            setResult(res.errorMessage);
+            
         }).catch(err => {
             console.log(err);
             setSuccess(false);

@@ -20,38 +20,18 @@ function EditCustomer(props) {
         });
     }
 
-    // get user data and then pass data to user update screen for updating
-    // const getCustomerDataById = () => {
-    //     var url = BASE_URL + REST_API.GET_CUSTOMER_BY_ID.replace("{id}", id)
-    //     fetch(url, {
-    //         method: 'GET',
-    //     }).then(response => {
-    //         console.log(response);
-    //         if (response.status === '200') {
-    //             return response.json();
-    //         }
-    //     }).then(res => {
-    //         setFormData(res);
-    //     }).catch(err => {
-    //         console.log(err);
-    //     });
-    // }
-
-    const getCustomerDataById = (e) => {
+    const getCustomerDataById = () => {
         var url = BASE_URL + REST_API.GET_CUSTOMER_BY_ID.replace('{id}', id);
         fetch(url, {
             method: 'GET'
         }).then(response => {
             console.log(response);
-            if (response.status === 200 || response.status === 404)
+            if (response.status === 200)
                 return response.json();
+            else{
+                throw new Error();
+            }
         }).then(res => {
-            console.log(res);
-            // setCustomerDetails({
-            //     phoneNum: res.phoneNum,
-            //     address: res.address,
-            // }
-            // );
             setFormData(res);
         }).catch(err => {
             console.log(err)
