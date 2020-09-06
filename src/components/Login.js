@@ -30,34 +30,40 @@ function Login(props) {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
-            console.log(response);
-            if (response.status === 200){
-            sessionStorage.setItem('authenticated', true);
-            history.push("/");
+
+            if (response.status === 200) {
+                sessionStorage.setItem('authenticated', true);
+                history.push("/");
+                return;
+            } else {
+                return response.json();
             }
-        }).catch(err=>{
+        }).then(res => {
+            setSuccess(false);
+            setResult(res.errorMessage);
+        }).catch(err => {
             console.log(err);
             setSuccess(false);
             setResult(err.errorMessage);
         });
-        
+
     }
 
-    
+
     return (
         <Container fluid>
             <div className="custom-form">
                 <FormHeader class="form-header" title='Sign in' />
-                <FormResult isSuccess={isSuccess} result={result} span="12"/>
+                <FormResult isSuccess={isSuccess} result={result} span="12" />
                 <Form onSubmit={onSubmit} style={{ margin: '20px 0px' }}>
                     <FormInput size="12" name="userId" placeholder="User ID" value={formData.userId} onChange={onFieldChange}
-                         required />
+                        required />
                     <FormInput size="12" name="password" placeholder="Password" value={formData.password} onChange={onFieldChange} type="password"
                         required />
-                    
+
                     <Row>
                         <Col md={{ span: 3, offset: 9 }} >
-                            <Button variant="primary" type="submit" className="login" style={{width:'100%'}}>
+                            <Button variant="primary" type="submit" className="login" style={{ width: '100%' }}>
                                 Login
                             </Button>
                         </Col>

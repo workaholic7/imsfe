@@ -15,7 +15,7 @@ function CreateInvoice() {
         customerId: "", total: "", items: []
     });
     const [disabled, setDisabled] = useState(true);
-    const [response, setResponse] = useState({refNum:"", date:""});
+    const [response, setResponse] = useState({ refNum: "", date: "" });
 
     const disableSaveButton = (currentValue) => {
         setDisabled(currentValue);
@@ -31,7 +31,7 @@ function CreateInvoice() {
                 return response.json();
         }).then(res => {
             setCustNameAndId(res);
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err)
         });
     }
@@ -43,17 +43,16 @@ function CreateInvoice() {
         fetch(url, {
             method: 'GET'
         }).then(response => {
-            console.log(response);
             if (response.status === 200 || response.status === 404)
                 return response.json();
         }).then(res => {
             setCustomerDetails({
                 phoneNum: res.phoneNum,
-                address: res.address,
+                address: res.addressLine1 + res.addressLine2,
             }
             );
             setFormData({ ...formData, customerId: res.id });
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err)
         });
     }
@@ -68,17 +67,17 @@ function CreateInvoice() {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
-            
+
             if (response.status === 201)
                 return response.json();
         }).then(res => {
             const responseCopy = Object.assign({}, response);
-            responseCopy.refNum = res.referenceNumber;
+            responseCopy.refNum = res.refNum;
             responseCopy.date = res.date;
             setResponse(responseCopy);
             setDisabled(true);
-            
-        }).catch(err=>{
+
+        }).catch(err => {
             console.log(err);
         });
     }
@@ -124,7 +123,7 @@ function CreateInvoice() {
                     </Col>
                 </Row>
 
-                <ItemDetail formData={formData} setFormData={setFormData} disableSaveButton={disableSaveButton}/>
+                <ItemDetail formData={formData} setFormData={setFormData} disableSaveButton={disableSaveButton} />
                 <Row>
                     <Col>
                         <FormInput name="referenceNumber" value={formData.total}
