@@ -6,23 +6,17 @@ import { faShoppingCart } from '@fortawesome/free-regular-svg-icons'
 
 
 
-export default function Count({ count, text, icon }) {
+export default function Count({ count, text, icon, className}) {
     return (
-        <div>
-            <Row>
-                <Col md={{ span: 1 }} >
-                    <FontAwesomeIcon icon={icon} size="lg" />
+            <Row className={"count-row "+className}>
+                <Col md={{ span: 4 }} className="count-icon">
+                    {icon}
                 </Col>
-                <Col md={8}>
+                <Col md={8} className="count-text">
                     {text}
                     <br />
-                    {count}
-
+                    <b>{count}</b>
                 </Col>
-
             </Row>
-
-            {/* <FontAwesomeIcon icon={faShoppingCart} size="lg" /> */}
-        </div>
     )
 }

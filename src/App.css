@@ -189,6 +189,12 @@ padding-top: 8px;
   text-align: center;
 }
 
+.download-button{
+  color: rgb(21, 200, 45);
+  cursor: pointer;
+  text-align: center;
+}
+
 .toggle-password-button{
   border-left-width: 0px !important;
   border-top-right-radius: 0.25rem !important;
@@ -213,5 +219,49 @@ padding-top: 8px;
   padding-left:0px !important;
 }
 
+.login{
+  width: 100%;
+  background-color:#F34601 !important;
+  border: 0px !important;
+
+}
+
+.add-button, .calculate-button {
+  background-color: #FCAD10 !important;
+    color: black !important;
+    font-weight: bold !important;
+    border: 0px !important;
+}
+
+.add-button:focus, .calculate-button:focus{
+  box-shadow: 0 0 0 0.2rem rgb(209, 143, 12) !important;
+}
+
+.save-button, .cancel-button{
+  background-color: rgb(21, 200, 45) !important;
+  color: black !important;
+    font-weight: bold !important;
+    border: 0px !important;
+    width: 100% !important;
+}
+
+.save-button:focus, .cancel-button:focus{
+  box-shadow: 0 0 0 0.2rem rgb(14, 151, 67) !important;
+}
+
+.count-row{
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 80% !important;
+}
+
+.count-icon, .count-text{
+  padding: 0px !important;
+}
 
 
+
+.first-row{
+  float: right;
+    margin-right: 10px !important;
+}

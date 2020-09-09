@@ -60,7 +60,7 @@ function Login(props) {
 
                     <Row>
                         <Col md={{ span: 3, offset: 9 }} >
-                            <Button variant="primary" type="submit" className="login" style={{ width: '100%' }}>
+                            <Button type="submit" className="login">
                                 Login
                             </Button>
                         </Col>

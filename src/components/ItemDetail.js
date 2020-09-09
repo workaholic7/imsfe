@@ -70,29 +70,49 @@ function ItemDetail({ formData, setFormData, disableSaveButton }) {
     }, []);
 
     return (
-        <div className='container'>
+       <>
             <div style={{ textAlign: 'left', fontWeight: 'bold', marginTop: '20px' }}>Item Details</div>
             <hr />
 
             <Row>
                 <Col md={4}>
-                    <FormSelect label="Add Item" dropDownList={itemType} placeholder="Select Item" onChange={updateItemTypeId} />
+                    <FormSelect label="Add Item" span="8" labelSpan="4" labelOffset="0" dropDownList={itemType} placeholder="Select Item" onChange={updateItemTypeId} />
 
                 </Col>
                 <Col md={2}>
-                    <Button onClick={addItemRow} disabled={itemTypeId===""}>Add</Button>
+                    <Button className="add-button" onClick={addItemRow} disabled={itemTypeId===""}>Add</Button>
                 </Col>
             </Row>
+            {itemRow.length>0?
+                <Row>
+                <Col md={{ span: 3, offset: 0 }}>
+                Item Description
+            </Col>
+
+            <Col md={{ span: 2, offset: 0 }}>
+                QTY
+            </Col>
+
+            <Col md={{ span: 2, offset: 0 }}>
+                Unit Price(RM)
+            </Col>
+
+            <Col md={{ span: 2, offset: 0 }}>
+                Amount(RM)
+            </Col>
+            
+        </Row>
+            
+            :<></>}
             {itemRow}
             <Row>
                 <Col>
-                    <Button onClick={() => calculate()} disabled={showCalculateButton}>Calculate</Button>
+                    <Button className="calculate-button" onClick={() => calculate()} disabled={showCalculateButton}>Calculate</Button>
                 </Col>
             </Row>
+</>
 
-
-        </div>
-    );
+ );
 }
 
 export default ItemDetail;
