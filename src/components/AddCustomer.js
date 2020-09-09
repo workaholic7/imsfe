@@ -84,7 +84,7 @@ function AddCustomer() {
                     labelSpan="3" labelStyle={Styles.right} />
                 <Row>
                     <Col md={{ span: 4, offset: 3 }} xs={12} style={{ textAlign: 'center' }}>
-                        <Button variant="primary" type="submit" className="addButton" style={{ width: '100%' }} disabled={disabled}>
+                        <Button variant="primary" type="submit" className="add-button" style={{ width: '100%' }} disabled={disabled}>
                             ADD
                         </Button>
                     </Col>

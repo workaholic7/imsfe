@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import PageHeading from './common/PageHeading';
 import { BASE_URL, REST_API } from '../Constants';
 import FormInput from './common/FormInput';
@@ -73,6 +74,9 @@ function CreateInvoice() {
 
             if (response.status === 201)
                 return response.json();
+            else{
+                throw new Error("fsdf");
+            }
         }).then(res => {
             const responseCopy = Object.assign({}, response);
             responseCopy.refNum = res.refNum;
@@ -85,7 +89,7 @@ function CreateInvoice() {
         }).catch(err => {
             console.log(err);
             setSuccess(false);
-            setResult(err.errorMessage);
+            //setResult(err.errorMessage);
 
         });
     }
@@ -141,8 +145,11 @@ function CreateInvoice() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <Button type="submit" disabled={disabled}>Save</Button>
+                    <Col md={{span: 2, offset: 4}}>
+                        <Button className="save-button" type="submit" disabled={disabled}>Save</Button>
+                    </Col>
+                    <Col md={2}>
+                        <Button className="cancel-button" ><Link to="/invoice" style={{color: 'black'}}>Cancel</Link></Button>
                     </Col>
                 </Row>
 

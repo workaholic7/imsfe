@@ -67,12 +67,12 @@ function Invoice() {
     return (
         <>
             <PageHeading title='Invoices' />
-            <Row>
+            <Row style={{marginBottom:'20px'}}>
                 <Col xl={{ span: '3', offset: '6' }}>
-                    <Count count={totalCustomer} text="Total Customer" icon={faUser} />
+                    <Count className="first-row" count={totalInvoice} text="Total Invoice" icon={<i class="fa fa-user fa-3x"></i>} />
                 </Col>
-                <Col xl={3}>
-                    <Count count={totalInvoice} text="Total Invoice" icon={faUser} />
+                <Col xl={{span: '3'}} >
+                <Count count={totalCustomer} text="Total Customer" icon={<i class="fa fa-shopping-cart fa-3x"></i>} />
                 </Col>
             </Row>
 

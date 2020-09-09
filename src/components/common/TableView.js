@@ -29,11 +29,11 @@ function TableView(props) {
                                     {element[key]}
                                 </td> : <React.Fragment key={'id'+index}></React.Fragment>
                             )}
-                            {props.download ? <td><FontAwesomeIcon icon={faArrowAltCircleDown} size="lg" onClick={() => props.download(element.id, element[props.downloadFileName])} /></td>
+                            {props.download ? <td className="download-button"><FontAwesomeIcon icon={faArrowAltCircleDown} size="lg" onClick={() => props.download(element.id, element[props.downloadFileName])} /></td>
                                 : <React.Fragment key={'download'+index}></React.Fragment>}
-                            {props.delete ? <td><FontAwesomeIcon icon={faTrashAlt} size="lg" onClick={() => props.delete(element.id)} /></td>
+                            {props.delete ? <td className="delete-button"><FontAwesomeIcon icon={faTrashAlt} size="lg" onClick={() => props.delete(element.id)} /></td>
                                 : <React.Fragment key={'delete'+index}></React.Fragment>}
-                            {props.edit ? <td><FontAwesomeIcon icon={faEdit} size="lg" onClick={() => props.edit(element.id)} /></td>
+                            {props.edit ? <td className="edit-button"><FontAwesomeIcon icon={faEdit} size="lg" onClick={() => props.edit(element.id)} /></td>
                                 : <React.Fragment key={'edit'+index}></React.Fragment>}
                         </tr>
                     )}

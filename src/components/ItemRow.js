@@ -34,7 +34,7 @@ const ItemRow = forwardRef(({ itemTypeId, deleteRow, rowId }, ref) => {
     return (
         <Row>
             <FormInput  name="itemTypeId" hidden defaultValue={itemTypeId} />
-            <Col md={{ span: 3, offset: 1 }}>
+            <Col md={{ span: 3, offset: 0 }}>
                 <FormInput name="description" placeholder="Item Description" value={itemDetail.description}
                     onChange={onFieldChange} required="required" size="12" />
             </Col>
